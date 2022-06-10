@@ -6,6 +6,16 @@ const { BadRequestError } = require("./expressError");
 function convertStrNums(strNums) {
   // if the conversion isn't successful, throw a BadRequestError and will
   // be handled in your route
+
+  for(num in strNums){
+    strNums[num] = Number(strNums[num]);
+
+    if(isNaN(strNums[num])){
+      throw new BadRequestError("Non-number in query")
+    }
+  }
+
+  return strNums;
 }
 
 
