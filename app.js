@@ -60,6 +60,26 @@ app.get("/mode", function(req, res, next){
     });
 });
 
+app.get("/all", function (req, res, next){
+  if(req.query.nums === undefined){
+    throw new BadRequestError(MISSING);
+  }
+
+  let nums = req.query.nums.split(",");
+  nums = convertStrNums(nums);
+
+  all = {
+    operation: "all",
+    mean: findMean(nums),
+    median: findMedian(nums),
+    mode: findMode(nums)
+  }
+
+  return res.status(400).json({
+    response : all
+  });
+});
+
 
 /** Finds median of nums in qs: returns {operation: "median", result } */
 
